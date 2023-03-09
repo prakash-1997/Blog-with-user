@@ -31,11 +31,14 @@ class BlogPost(db.Model):
     date = db.Column(db.String(250), nullable=False)
     body = db.Column(db.Text, nullable=False)
     img_url = db.Column(db.String(250), nullable=False)
-db.create_all()
+
+    def create_database_tabel():
+        db.create_all()
 
 
 @app.route('/')
 def get_all_posts():
+    BlogPost.create_database_tabel()
     posts = BlogPost.query.all()
     return render_template("index.html", all_posts=posts)
 
@@ -120,4 +123,4 @@ def delete_post(post_id):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True)
